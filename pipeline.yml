@@ -25,8 +25,6 @@ resources:
     private_key: ((git.private_key))
     branch: ((config-branch))
 
-# This task is used in multiple jobs
-# The yaml anchor "*interpolate-creds" is used in its place
 interpolate-creds: &interpolate-creds
   image: platform-automation-image
   file: platform-automation-tasks/tasks/credhub-interpolate.yml
@@ -34,34 +32,34 @@ interpolate-creds: &interpolate-creds
     CREDHUB_CLIENT: ((credhub-client))
     CREDHUB_SECRET: ((credhub-secret))
     CREDHUB_SERVER: ((credhub-server))
-    CREDHUB_CA_CERT: ((credhub-ca-cert))
-    PREFIX: '/concourse/mat/azpcf'
-    INTERPOLATION_PATHS: azpcf
-    SKIP_MISSING: true
+    CREDHUB_CA_CERT: ((credhub-ca-cert.ca))
+    PREFIX: "/concourse/mat"
+    INTERPOLATION_PATHS: ((foundation))
   input_mapping:
     files: configuration
   output_mapping:
-    interpolated-files: interpolated-creds    
+    interpolated-files: interpolated-creds
 jobs:
 - name: configure-boshdir
   plan:
-    - aggregate:
-      - get: platform-automation-image
-        params:
-          globs: ["*image*.tgz"]
-          unpack: true
-      - get: platform-automation-tasks
-        params:
-          globs: ["*tasks*.zip"]
-          unpack: true
-      - get: configuration
-      - task: interpolate-creds
-        <<: *interpolate-creds
-      - task: configure-authentication
-        image: platform-automation-image
-        file: platform-automation-tasks/tasks/configure-authentication.yml
-        attempts: 3
-        input_mapping:
-          env: interpolated-creds
-          config: interpolated-creds
- 
+    - get: platform-automation-image
+      params:
+        globs: ["*image*.tgz"]
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        globs: ["*tasks*.zip"]
+        unpack: true
+    - get: configuration
+    - task: interpolate-creds
+      <<: *interpolate-creds
+    - task: configure-authentication
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/configure-authentication.yml
+      attempts: 3
+      params:
+        ENV_FILE: ((foundation))/config/env.yml
+        AUTH_CONFIG_FILE: ((foundation))/config/auth.yml
+      input_mapping:
+        env: interpolated-creds
+        config: interpolated-creds

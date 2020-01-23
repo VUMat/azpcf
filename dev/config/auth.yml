@@ -1,0 +1,4 @@
+---
+username: ((ops_user.username))
+password: ((ops_user.password))
+decryption-passphrase: ((ops_mgr_decryption_password))
