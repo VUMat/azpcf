@@ -1,3 +1,5 @@
 .envrc
-credhub.file
+credhub.file*
 root_ca_cert*
+opsman_creds
+director.yml

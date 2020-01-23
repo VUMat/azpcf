@@ -35,6 +35,7 @@ interpolate-creds: &interpolate-creds
     CREDHUB_CA_CERT: ((credhub-ca-cert.ca))
     PREFIX: "/concourse/mat"
     INTERPOLATION_PATHS: ((foundation))
+    SKIP_MISSING: false
   input_mapping:
     files: configuration
   output_mapping:
@@ -63,3 +64,12 @@ jobs:
       input_mapping:
         env: interpolated-creds
         config: interpolated-creds
+    - task: configure-director
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/configure-director.yml
+      params:
+        ENV_FILE: ((foundation))/config/env.yml
+        DIRECTOR_CONFIG_FILE: ((foundation))/config/director.yml
+      input_mapping:
+        config: interpolated-creds
+        env: interpolated-creds

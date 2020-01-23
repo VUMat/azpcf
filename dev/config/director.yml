@@ -1,0 +1,109 @@
+iaas-configurations:
+- additional_cloud_properties: {}
+  availability_mode: availability_sets
+  bosh_storage_account_name: ((bosh_storage_account_name))
+  client_id: ((client_id))
+  client_secret: ((client_secret))
+  cloud_storage_type: managed_disks
+  default_security_group: ((default_security_group))
+  environment: AzureCloud
+  name: default
+  resource_group_name: ((resource_group_name))
+  ssh_private_key: ((azure_ssh_key.private_key))
+  ssh_public_key: ((azure_ssh_key.public_key))
+  storage_account_type: Standard_LRS
+  subscription_id: ((subscription_id))
+  tenant_id: ((tenant_id))
+network-assignment:
+  network:
+    name: infrastructure
+  other_availability_zones:
+  - name: Availability Sets
+  singleton_availability_zone:
+    name: Availability Sets
+networks-configuration:
+  icmp_checks_enabled: false
+  networks:
+  - name: infrastructure
+    subnets:
+    - iaas_identifier: ((infrastructure_iaas_identifier))
+      cidr: 10.0.8.0/26
+      dns: ((dns))
+      gateway: 10.0.8.1
+      reserved_ip_ranges: 10.0.8.1-10.0.8.9
+      availability_zone_names:
+      - Availability Sets
+  - name: pas
+    subnets:
+    - iaas_identifier: ((pas_iaas_identifier))
+      cidr: 10.0.0.0/22
+      dns: ((dns))
+      gateway: 10.0.0.1
+      reserved_ip_ranges: 10.0.0.1-10.0.0.9
+      availability_zone_names:
+      - Availability Sets
+  - name: services
+    subnets:
+    - iaas_identifier: ((services_iaas_identifier))
+      cidr: 10.0.4.0/26
+      dns: ((dns))
+      gateway: 10.0.4.1
+      reserved_ip_ranges: 10.0.4.1-10.0.4.9
+      availability_zone_names:
+      - Availability Sets
+properties-configuration:
+  director_configuration:
+    blobstore_type: local
+    bosh_recreate_on_next_deploy: false
+    bosh_recreate_persistent_disks_on_next_deploy: false
+    database_type: internal
+    director_worker_count: 5
+    encryption:
+      keys: []
+      providers: []
+    hm_emailer_options:
+      enabled: false
+    hm_pager_duty_options:
+      enabled: false
+    identification_tags: {}
+    job_configuration_on_tmpfs: false
+    keep_unreachable_vms: false
+    local_blobstore_options:
+      enable_signed_urls: false
+    ntp_servers_string: ((ntp_servers_string))
+    post_deploy_enabled: false
+    resurrector_enabled: false
+    retry_bosh_deploys: false
+    skip_director_drain: false
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
+  security_configuration:
+    generate_vm_passwords: true
+    opsmanager_root_ca_trusted_certs: false
+  syslog_configuration:
+    enabled: false
+resource-configuration:
+  compilation:
+    additional_networks: []
+    additional_vm_extensions: []
+    elb_names: []
+    instance_type:
+      id: automatic
+    instances: automatic
+    internet_connected: false
+    swap_as_percent_of_memory_size: automatic
+  director:
+    additional_networks: []
+    additional_vm_extensions: []
+    elb_names: []
+    instance_type:
+      id: automatic
+    instances: automatic
+    internet_connected: false
+    persistent_disk:
+      size_mb: automatic
+    swap_as_percent_of_memory_size: automatic
+vmextensions-configuration: []
+vmtypes-configuration: {}
+
