@@ -132,3 +132,12 @@ jobs:
         - get: configuration
     - task: interpolate-creds
       <<: *interpolate-creds
+    - task: configure-pas
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/configure-product.yml
+      input_mapping:
+        config: interpolated-creds
+        env: interpolated-creds
+      params:
+        ENV_FILE: ((foundation))/config/env.yml
+        CONFIG_FILE: ((foundation))/config/pas.yml
