@@ -396,7 +396,7 @@ resource-config:
     max_in_flight: 1
     additional_networks: []
     additional_vm_extensions: []
-    elb_names: []
+    elb_names: pcfaz-diego-ssh-lb
     instance_type:
       id: automatic
     instances: automatic
@@ -468,11 +468,11 @@ resource-config:
     max_in_flight: 1
     additional_networks: []
     additional_vm_extensions: []
-    elb_names: []
+    elb_names: pcfaz-web-lb
     instance_type:
       id: automatic
     instances: automatic
-    internet_connected: false
+    internet_connected: true
     swap_as_percent_of_memory_size: automatic
   tcp_router:
     max_in_flight: 1

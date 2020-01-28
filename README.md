@@ -8,7 +8,7 @@ Concourse pipeline for deploying PCF on Azure
 - ~~deploy Bosh director~~
 - ~~download stemcell and product (PAS)~~
 - ~~upload stemcell and product (PAS)~~
-- configure product (PAS)
+- ~~configure product (PAS)~~
 - deploy PAS
 - download stemcell and product (PKS)
 - upload stemcell and product (PKS)
@@ -37,3 +37,6 @@ wget https://github.com/pivotal-cf/om/releases/download/4.4.1/om-linux-4.4.1.tar
  tar -xvf om-linux*
  create env.yml
  ./om --env env.yml upload-product -p srt-2.8.2-build.11.pivotal
+ 
+
+ add ALB to router and control (diego ssh) 
