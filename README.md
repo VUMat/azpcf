@@ -20,8 +20,7 @@ setup credhub values from terraform output(to restore env):
 director:
 - bosh_storage_account_name
 - azure_ssh_key.private_key/public
-- set dns in dns provider
-- client_secret?
+- ~~set dns in dns provider~~ (terraform always using the same azure dns servers)
 
 pas:
 
