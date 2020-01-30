@@ -9,7 +9,7 @@ Concourse pipeline for deploying PCF on Azure
 - ~~download stemcell and product (PAS)~~
 - ~~upload stemcell and product (PAS)~~
 - ~~configure product (PAS)~~
-- deploy PAS
+- ~~deploy PAS~~
 - download stemcell and product (PKS)
 - upload stemcell and product (PKS)
 - configure product (PKS)

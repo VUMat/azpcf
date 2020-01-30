@@ -474,7 +474,7 @@ resource-config:
     instance_type:
       id: automatic
     instances: automatic
-    internet_connected: true
+    internet_connected: false
     swap_as_percent_of_memory_size: automatic
   tcp_router:
     max_in_flight: 1
